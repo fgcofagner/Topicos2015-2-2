@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by FagnerGabriel on 26/10/2015.
@@ -19,6 +20,7 @@ public class Obstaculo {
     private float posYCima, posYBaixo;
     private float largura, altura;
     private boolean passou;
+
 
     private Obstaculo ultimoObstaculo; //ultimo antes do atual
 
@@ -58,12 +60,12 @@ public class Obstaculo {
         largura = 40 / Util.PIXEL_METRO;
         altura = camera.viewportHeight / Util.PIXEL_METRO;
 
-        float xInicial = largura;
+        float xInicial = largura + (camera.viewportWidth / 2 / Util.PIXEL_METRO);
 
         if(ultimoObstaculo != null)
             xInicial = ultimoObstaculo.getPosX();
 
-        posx = xInicial + 8; //4 é o espaço entre os obstáculos
+        posx = xInicial + 4; //4 é o espaço entre os obstáculos
 
         //tamanho de tela dividido por 6, para encontrar a posicao y do obstaculo
         float parcela = (altura - Util.ALTURA_CHAO) / 6;
@@ -73,12 +75,42 @@ public class Obstaculo {
         posYCima = posYBaixo + altura + 2f;
     }
 
-    public float getPosX(){
-        return this.posx;
-    }
+
 
     public void remover(){
         mundo.destroyBody(corpoCima);
         mundo.destroyBody(corpoBaixo);
+    }
+
+    public float getPosX(){
+        return this.posx;
+    }
+
+    public void setPosx(float posx) {
+        this.posx = posx;
+    }
+
+    public float getLargura() {
+        return largura;
+    }
+
+    public void setLargura(float largura) {
+        this.largura = largura;
+    }
+
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public boolean isPassou() {
+        return passou;
+    }
+
+    public void setPassou(boolean passou) {
+        this.passou = passou;
     }
 }
